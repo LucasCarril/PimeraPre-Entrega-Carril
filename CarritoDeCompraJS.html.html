@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+    <script>
+                // Inicializar el carrito como un objeto vacío
+        let carrito = {};
+
+        // Función para agregar un producto al carrito
+        function agregarAlCarrito(producto, precio, cantidad) {
+        // Si el producto ya está en el carrito, actualizar la cantidad
+        if (carrito[producto]) {
+            carrito[producto].cantidad += cantidad;
+        } else {
+            // Si el producto no está en el carrito, agregarlo
+            carrito[producto] = {
+            precio: precio,
+            cantidad: cantidad
+            };
+        }
+        }
+
+        // Función para eliminar un producto del carrito
+        function eliminarDelCarrito(producto) {
+        if (carrito[producto]) {
+            delete carrito[producto];
+        }
+        }
+
+        // Función para calcular el total de la compra
+        function calcularTotal() {
+        let total = 0;
+        for (let producto in carrito) {
+            total += carrito[producto].precio * carrito[producto].cantidad;
+        }
+        return total;
+        }
+
+        // Función para mostrar el carrito y el total
+        function mostrarCarrito() {
+        console.log("Carrito:");
+        for (let producto in carrito) {
+            console.log(`${producto} x ${carrito[producto].cantidad} - $${carrito[producto].precio * carrito[producto].cantidad}`);
+        }
+        console.log(`Total: $${calcularTotal()}`);
+        }
+
+        // Función para pedir al usuario que ingrese un producto
+        function pedirProducto() {
+        let producto = prompt("Ingresa el nombre del producto:");
+        let precio = Number(prompt("Ingresa el precio del producto:"));
+        let cantidad = Number(prompt("Ingresa la cantidad de productos que deseas comprar:"));
+        agregarAlCarrito(producto, precio, cantidad);
+        }
+
+        // Función para pedir al usuario que elimine un producto
+        function pedirEliminar() {
+        let producto = prompt("Ingresa el nombre del producto que deseas eliminar:");
+        eliminarDelCarrito(producto);
+        }
+
+        // Ciclo principal del programa
+        let terminado = false;
+        while (!terminado) {
+        let accion = prompt("¿Qué deseas hacer? (Agregar/Eliminar/Mostrar/Terminar)").toLowerCase();
+        switch (accion) {
+            case "agregar":
+            pedirProducto();
+            break;
+            case "eliminar":
+            pedirEliminar();
+            break;
+            case "mostrar":
+            mostrarCarrito();
+            break;
+            case "terminar":
+            terminado = true;
+            break;
+            default:
+            console.log("Opción inválida. Intenta de nuevo.");
+        }
+        }
+
+
+    </script> 
+    <!--con este algoritmo lo que estoy logrando es que al momento que el usuario coloque un numero me 
+    diga una respuesta segun lo que el usuario coloco, segun si es mayor o menor/igual a 10-->
+</body>
+</html>  
